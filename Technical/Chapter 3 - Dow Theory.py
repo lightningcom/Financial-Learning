@@ -165,12 +165,12 @@ with tab3:
                 with_secondary = p + s
                 # To visualize just the wave distinct from price, we can plot it, but here we want to show composition
                 # Let's plot the "Idealized" price (Primary + Secondary)
-                fig.add_trace(go.Scatter(x=t, y=with_secondary, mode='lines', name='Primary + Secondary', line=dict(color='green', width=2)))
+                fig.add_trace(go.Scatter(x=t, y=with_secondary, mode='lines', name='Primary + Secondary', line=dict(color='orange', width=2)))
                 current_view = with_secondary
 
             if show_minor:
                 # Total Price
-                fig.add_trace(go.Scatter(x=t, y=total, mode='lines', name='Final Price (Composite)', line=dict(color='black', width=1)))
+                fig.add_trace(go.Scatter(x=t, y=total, mode='lines', name='Final Price (Composite)', line=dict(color='yellow', width=1)))
 
             fig.update_layout(title="Deconstructing Price Action", height=500, xaxis_title="Time", yaxis_title="Price")
             st.plotly_chart(fig, use_container_width=True)
