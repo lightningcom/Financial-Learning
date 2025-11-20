@@ -221,7 +221,7 @@ with tab4:
         # Annotations
         fig_bear.add_vrect(x0=0, x1=3.3, fillcolor="orange", opacity=0.1, annotation_text="Distribution", annotation_position="bottom left")
         fig_bear.add_vrect(x0=3.3, x1=6.6, fillcolor="red", opacity=0.1, annotation_text="Panic", annotation_position="bottom left")
-        fig_bear.add_vrect(x0=6.6, x1=10, fillcolor="gray", opacity=0.1, annotation_text="Despair", annotation_position="bottom left")
+        fig_bear.add_vrect(x0=6.6, x1=10, fillcolor="yellow", opacity=0.1, annotation_text="Despair", annotation_position="bottom left")
 
         fig_bear.update_layout(title="Anatomy of a Bear Market", height=400, showlegend=False)
         st.plotly_chart(fig_bear, use_container_width=True)
@@ -293,7 +293,7 @@ with tab6:
     fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.03, row_heights=[0.7, 0.3])
     
     # Price Trace
-    fig.add_trace(go.Scatter(x=t, y=price, mode='lines', name='Price', line=dict(color='black')), row=1, col=1)
+    fig.add_trace(go.Scatter(x=t, y=price, mode='lines', name='Price', line=dict(color='yellow')), row=1, col=1)
     
     # Volume Trace (Color code bars)
     colors = ['green' if price[i] >= price[i-1] else 'red' for i in range(len(price))]
@@ -319,7 +319,7 @@ with tab7:
     t = np.arange(len(price_pattern))
     
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=t, y=price_pattern, mode='lines+markers', line=dict(color='black')))
+    fig.add_trace(go.Scatter(x=t, y=price_pattern, mode='lines+markers', line=dict(color='orange')))
         
     fig.add_annotation(x=9, y=22, text="Highest High", showarrow=True, arrowhead=1)
     fig.add_annotation(x=10, y=18, text="Key Support (Low)", showarrow=True, arrowhead=1, ay=40)
@@ -327,7 +327,7 @@ with tab7:
     fig.add_annotation(x=13, y=17, text="Break of Structure!", showarrow=True, arrowhead=1, ay=40, ax=40, font=dict(color="red", size=14))
         
     # Add Support Line
-    fig.add_shape(type="line", x0=9, y0=18, x1=14, y1=18, line=dict(color="red", dash="dash"))
+    fig.add_shape(type="line", x0=9, y0=18, x1=14, y1=18, line=dict(color="green", dash="dash"))
         
     fig.update_layout(title="Anatomy of a Reversal (Failure Swing)", height=500, xaxis_title="Time", yaxis_title="Price")
     st.plotly_chart(fig, use_container_width=True)
