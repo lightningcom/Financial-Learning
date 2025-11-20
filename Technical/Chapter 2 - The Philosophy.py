@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.header("The Philosophy: The Three Pillars", divider=True)
+st.title("The Philosophy: The Three Pillars")
 
 st.write("""
 If you want to be a technical analyst, you have to buy into a specific philosophy. There are three core assumptions that act as the "pillars" holding up everything we do. \n""" , unsafe_allow_html=True)

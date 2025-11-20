@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.header("Introduction : The Language of the Markets", divider=True)
+st.title("Introduction : The Language of the Markets")
 st.markdown("""
 Have you ever looked at a stock chart—that jagged line zigzagging across a screen—and felt like you were trying to read an alien language? Or maybe you’ve watched financial news where pundits talk about "support levels," "breakouts," and "dead cat bounces" and wondered if they were just making it up as they went along? \n
 
