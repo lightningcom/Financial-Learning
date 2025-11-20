@@ -40,6 +40,20 @@ def generate_trends(days=365, primary_slope=0.1, sec_freq=0.05, sec_amp=5, noise
     return t, primary, secondary, minor, total_price
 
 
+def generate_volume_trend(price, trend_direction=1):
+    """Generates synthetic volume data correlated with price movement."""
+    change = np.diff(price, prepend=price[0])
+    
+    # Base volume with noise
+    vol = np.random.normal(1000, 100, len(price))
+    
+    if trend_direction == 1:
+        # Healthy: Volume expands on up-moves (change > 0)
+        vol += np.where(change > 0, 500, -200)
+        
+    return np.clip(vol, 100, None)
+
+
 
 st.title("Dow Theory and application")
 
@@ -56,13 +70,13 @@ with tab1:
 
     st.markdown("""
 
-    It is a great irony of financial history that the father of technical analysis, **Charles H. Dow**, never wrote a book on the subject, nor did he ever use the term "Technical Analysis."\n
+    It is a great irony of financial history that the father of technical analysis, **Charles H. Dow**, never wrote a book on the subject, nor did he ever use the term "Technical Analysis."\\n
 
-    In the late 19th century, Wall Street was a chaotic, unregulated environment. Charles Dow, a journalist and co-founder of Dow Jones & Company, sought to bring transparency to this chaos. In 1884, he created the first stock average (composed mostly of railroads), and in 1896, he created the **Dow Jones Industrial Average (DJIA).**\n
+    In the late 19th century, Wall Street was a chaotic, unregulated environment. Charles Dow, a journalist and co-founder of Dow Jones & Company, sought to bring transparency to this chaos. In 1884, he created the first stock average (composed mostly of railroads), and in 1896, he created the **Dow Jones Industrial Average (DJIA).**\\n
 
-    Dow’s goal was not to create a system for trading stocks. His goal was to create an index that measured the health of the American economy. He published his observations in a series of editorials for The Wall Street Journal between 1900 and his death in 1902.\n
+    Dow's goal was not to create a system for trading stocks. His goal was to create an index that measured the health of the American economy. He published his observations in a series of editorials for The Wall Street Journal between 1900 and his death in 1902.\\n
 
-    It was his successors who organized these thoughts into a trading discipline. S.A. Nelson first coined the term "Dow’s Theory" in 1902. Later, William Peter Hamilton (in The Stock Market Barometer, 1922) and Robert Rhea (in The Dow Theory, 1932) refined these editorials into the axioms we study today.
+    It was his successors who organized these thoughts into a trading discipline. S.A. Nelson first coined the term "Dow's Theory" in 1902. Later, William Peter Hamilton (in The Stock Market Barometer, 1922) and Robert Rhea (in The Dow Theory, 1932) refined these editorials into the axioms we study today.
 
     """,unsafe_allow_html=False, width="stretch")
 
@@ -98,7 +112,7 @@ with tab2:
 
     * War in Europe? Priced in
 
-    * Expected earnings? Priced in \n
+    * Expected earnings? Priced in \\n
 
 
     Because the **"smart money"** acts on information before it becomes public news, the price movement itself is the news. The chart leads; the headlines follow.
@@ -167,9 +181,9 @@ with tab4:
 
     st.subheader("Mainly! the market trends have 3 Phases", divider=True)
 
-    st.write("Just as a story has a beginning, middle, and a Primary Trend has three distinct psychological phases.")
+    st.write("Just as a story has a beginning, middle, and the end. In same manner, a Primary Trend has three distinct psychological phases.")
 
-    tab1, tab2= st.tabs(["Bull Market phase", "Bear Market Phases"])
+    tab1, tab2= st.tabs(["Bull Market Phase", "Bear Market Phase"])
     with tab1:
         st.markdown("### The Bull Market Cycle")
         st.markdown("""
@@ -212,10 +226,110 @@ with tab4:
         fig_bear.update_layout(title="Anatomy of a Bear Market", height=400, showlegend=False)
         st.plotly_chart(fig_bear, use_container_width=True)
 
-
+with tab5:
+    st.subheader("Indices Must Confirm Each Other", divider=True)
+    st.markdown("""
+    This is the most unique and industrial-centric aspect of Dow Theory. Dow believed you could nove have a healthy economy unless goods were being manufactured and shipped. 
+    * **The Industrial Average:** Measures the performance of the largest, most industrialized companies.
+    * **The Transportation Average (earlier Railroad Average):** Measures the performance of the largest transportation companies. 
+    """)
+    st.success("**The Rule is simple:** If the Industrials hit a new high, the Transports must also hit a new high to **confirm** the trend. The Warning: If Industrials break out to a new high but Transports sluggishly fail to follow (a Divergence), the trend is suspect. It implies factories are making goods that aren't being shipped—a prelude to a recession.")
+    st.divider()
+    scenario = st.radio("**Select a market scenario**",["Healthy Confirmation","Bearish Non-Confirmation (Divergence)"])
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, subplot_titles=("Dow Jones Industrial Average (DJIA)", "Dow Jones Transportation Average (DJTA)"))
     
-
-
+    days = 100
+    t = np.arange(days)
+    
+    if scenario == "Healthy Confirmation":
+        # Both go up
+        djia = 100 + t * 0.5 + np.random.normal(0, 2, days)
+        djta = 100 + t * 0.5 + np.random.normal(0, 2, days)
+        msg = "✅ **CONFIRMED:** Both averages are making higher highs. The economy is producing AND shipping goods."
+    else:
+        # Divergence
+        djia = 100 + t * 0.5 + np.random.normal(0, 2, days) # Goes up
+        djta = 100 + t * 0.2 
+        djta[70:] = djta[70] - (np.arange(30) * 0.4) # Crash at end
+        djta += np.random.normal(0, 2, days)
+        msg = "⚠️ **NON-CONFIRMATION:** Industrials are making new highs, but Transports are failing. This is a major warning signal."
         
+    fig.add_trace(go.Scatter(x=t, y=djia, mode='lines', name='Industrials', line=dict(color='blue')), row=1, col=1)
+    fig.add_trace(go.Scatter(x=t, y=djta, mode='lines', name='Transports', line=dict(color='orange')), row=2, col=1)
+    
+    st.plotly_chart(fig, use_container_width=True)
+    st.success(msg)
 
+with tab6:
+    st.subheader("Volume Must Confirm the Trend", divider=True)
+    st.markdown("""
+    Volume is the secondary indicator. Dow believed volume should expand in the direction of the major trend.\\n
+    
+    * **Bullish Confirmation:** Volume expands as price moves up, and dries up when price pulls back.\\n
+    * **Bearish Confirmation:** Volume contracts in the direction of the trend.\\n
+    If prices rise to a new high but volume is lower than on the previous rally, the trend is running out of fuel.
+    """)
+    st.error("**Basically!** Volume is the Polygraph Test. It tells us if the price move is true or fake.")
+    st.divider()
+    
+    trend_type = st.radio("Simulate Scenario:", ["Healthy Uptrend", "Weak Uptrend (Divergence)"])
+    
+    days = 100
+    t = np.arange(days)
+    
+    # Create a zigzag price pattern (Uptrend)
+    price = 100 + t + 5 * np.sin(t * 0.2)
+    
+    # Calculate Volume
+    if trend_type == "Healthy Uptrend":
+        vol = generate_volume_trend(price, trend_direction=1)
+        msg = "✅ **Healthy:** Volume expands as price moves up, and dries up when price pulls back."
+    else:
+        # Weak Uptrend: Volume decreases as price goes up
+        vol = np.linspace(2000, 500, days) + np.random.normal(0, 100, days)
+        msg = "⚠️ **Weak/Divergence:** Price is rising, but Volume is dropping. Smart money is not participating. Danger of reversal."
 
+    # Plotting Price and Volume
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.03, row_heights=[0.7, 0.3])
+    
+    # Price Trace
+    fig.add_trace(go.Scatter(x=t, y=price, mode='lines', name='Price', line=dict(color='black')), row=1, col=1)
+    
+    # Volume Trace (Color code bars)
+    colors = ['green' if price[i] >= price[i-1] else 'red' for i in range(len(price))]
+    fig.add_trace(go.Bar(x=t, y=vol, name='Volume', marker_color=colors), row=2, col=1)
+    
+    fig.update_layout(height=500, title=f"Volume Analysis: {trend_type}", showlegend=False)
+    
+    st.plotly_chart(fig, use_container_width=True)
+    st.info(msg)
+
+with tab7:
+    st.subheader("A Trend Is Assumed to Be in Effect Until It Gives a Definite Signal of Reversal", divider=True)
+
+    st.info("This is the application of Newton's Law of Motion to finance: A trend in motion continues in motion.")
+    st.markdown("""A common mistake is trying to pick the "top" or "bottom" of a market prematurely. Dow Theory dictates that you must assume the current trend is still valid until the weight of evidence—specifically price breaking a previous significant low (in an uptrend) or high (in a downtrend)—proves otherwise. The technician does not predict the reversal; they identify it after it has begun.""")
+
+    # Create price pattern showing reversal
+    price_pattern = [
+        10, 12, 11, 14, 13, 16, 15, 19, 17, 22,
+        18,
+        20,
+        19, 17, 15, 14, 12, 10, 8]
+    t = np.arange(len(price_pattern))
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=t, y=price_pattern, mode='lines+markers', line=dict(color='black')))
+        
+    fig.add_annotation(x=9, y=22, text="Highest High", showarrow=True, arrowhead=1)
+    fig.add_annotation(x=10, y=18, text="Key Support (Low)", showarrow=True, arrowhead=1, ay=40)
+    fig.add_annotation(x=12, y=20, text="Lower High (Failure)", showarrow=True, arrowhead=1)
+    fig.add_annotation(x=13, y=17, text="Break of Structure!", showarrow=True, arrowhead=1, ay=40, ax=40, font=dict(color="red", size=14))
+        
+    # Add Support Line
+    fig.add_shape(type="line", x0=9, y0=18, x1=14, y1=18, line=dict(color="red", dash="dash"))
+        
+    fig.update_layout(title="Anatomy of a Reversal (Failure Swing)", height=500, xaxis_title="Time", yaxis_title="Price")
+    st.plotly_chart(fig, use_container_width=True)
+        
+    st.error("The trend is technically UP until the price breaks that red dashed line (The previous Low).")
