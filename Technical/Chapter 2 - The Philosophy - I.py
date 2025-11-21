@@ -38,7 +38,7 @@ Trends happen because news travels slowly and it takes time for people to really
 st.info("Don't stand in front of a freight train just because you think it's moving **too fast.** It will run you over. Ride that train until it hits a wall.",width="stretch")
 
 st.subheader("History Repeats Itself", divider=True)
-st.write("***THumans haven't updated their firmware in 10,000 years.***")
+st.write("***The Humans haven't updated their firmware in 10,000 years.***")
 st.markdown("""
 Ever wonder why chart patterns from 1920 look exactly like Bitcoin charts from 2024? Or why the Tulip Mania chart from the 1600s looks just like the Dot Com bubble?  \n
 It's because technology changes, algorithms get faster, **but human nature doesn't**.  \n
