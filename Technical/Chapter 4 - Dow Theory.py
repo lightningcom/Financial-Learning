@@ -70,11 +70,11 @@ with tab1:
 
     st.markdown("""
 
-    It is a great irony of financial history that the father of technical analysis, **Charles H. Dow**, never wrote a book on the subject, nor did he ever use the term "Technical Analysis."\\n
+    It is a great irony of financial history that the father of technical analysis, **Charles H. Dow**, never wrote a book on the subject, nor did he ever use the term "Technical Analysis."\n
 
-    In the late 19th century, Wall Street was a chaotic, unregulated environment. Charles Dow, a journalist and co-founder of Dow Jones & Company, sought to bring transparency to this chaos. In 1884, he created the first stock average (composed mostly of railroads), and in 1896, he created the **Dow Jones Industrial Average (DJIA).**\\n
+    In the late 19th century, Wall Street was a chaotic, unregulated environment. Charles Dow, a journalist and co-founder of Dow Jones & Company, sought to bring transparency to this chaos. In 1884, he created the first stock average (composed mostly of railroads), and in 1896, he created the **Dow Jones Industrial Average (DJIA).**\n
 
-    Dow's goal was not to create a system for trading stocks. His goal was to create an index that measured the health of the American economy. He published his observations in a series of editorials for The Wall Street Journal between 1900 and his death in 1902.\\n
+    Dow's goal was not to create a system for trading stocks. His goal was to create an index that measured the health of the American economy. He published his observations in a series of editorials for The Wall Street Journal between 1900 and his death in 1902.\n
 
     It was his successors who organized these thoughts into a trading discipline. S.A. Nelson first coined the term "Dow's Theory" in 1902. Later, William Peter Hamilton (in The Stock Market Barometer, 1922) and Robert Rhea (in The Dow Theory, 1932) refined these editorials into the axioms we study today.
 
@@ -112,7 +112,7 @@ with tab2:
 
     * War in Europe? Priced in
 
-    * Expected earnings? Priced in \\n
+    * Expected earnings? Priced in \n
 
 
     Because the **"smart money"** acts on information before it becomes public news, the price movement itself is the news. The chart leads; the headlines follow.
@@ -263,10 +263,10 @@ with tab5:
 with tab6:
     st.subheader("Volume Must Confirm the Trend", divider=True)
     st.markdown("""
-    Volume is the secondary indicator. Dow believed volume should expand in the direction of the major trend.\\n
+    Volume is the secondary indicator. Dow believed volume should expand in the direction of the major trend.\n
     
-    * **Bullish Confirmation:** Volume expands as price moves up, and dries up when price pulls back.\\n
-    * **Bearish Confirmation:** Volume contracts in the direction of the trend.\\n
+    * **Bullish Confirmation:** Volume expands as price moves up, and dries up when price pulls back.\n
+    * **Bearish Confirmation:** Volume contracts in the direction of the trend.\n
     If prices rise to a new high but volume is lower than on the previous rally, the trend is running out of fuel.
     """)
     st.error("**Basically!** Volume is the Polygraph Test. It tells us if the price move is true or fake.")

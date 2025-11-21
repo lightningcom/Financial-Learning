@@ -16,7 +16,6 @@ def load_module(filepath):
         st.error(f"Error loading chapter: {e}")
 
 def fundamentals():
-    # Sidebar Navigation
     with st.sidebar:
         st.page_link("Landing_Page.py", label="Back to Home", icon="🏠")
         
