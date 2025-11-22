@@ -125,6 +125,24 @@ with tab1:
         They turn a spreadsheet into a narrative. A line chart shows price going up. A candlestick chart might show price going up but struggling, leaving long upper wicks that signal the buyers are running out of ammo. That visual cue of "Exhaustion" is often the only warning you get before a reversal. We will deep dive into specific Candle patterns later—think of them as the Emoji language of the market.
                 """)
         st.plotly_chart(plot_candlestick(df), use_container_width=True)
+    
+    with tab_4:
+        st.write("The ***Autotune*** for Charts")
+        st.markdown("""
+        "Heikin-Ashi" means "Average Bar" in Japanese. It takes standard candlestick data and smooths it out using a formula. \n
+        **It’s like putting noise-canceling headphones on your trading.**\n
+        * In a normal candlestick chart, an uptrend might look like: Green, Green, Red, Green, Red, Green. It looks choppy.
+       * In Heikin-Ashi, that same uptrend looks like: Green, Green, Green, Green, Green. It smooths out the red candles during an uptrend to keep you focused on the primary direction.
+       **The Verdict:** Excellent for staying in a trend without getting shaken out by minor pullbacks. If the Heikin-Ashi candles are green with no lower wicks, you simply do not sell.
+        """)
+
+
+st.subheader("The Optical Illusion: Arithmetic vs. Logarithmic Scales", divider=True)
+st.write("""
+This is the most common mistake new traders make, and it usually leads to bad analysis. They look at a chart of Amazon or Apple from 1997 to 2024. On a standard setting, it looks like a completely flat line for 20 years and then suddenly a vertical wall in the last five years. \n
+That’s because they are using the wrong scale. They are looking at dollars, not growth. \n
+
+""")
 
 
 
