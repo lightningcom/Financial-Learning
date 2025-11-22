@@ -23,6 +23,7 @@ Every single time a trade happens on the stock market (or crypto, or forex), it 
 The price on the chart is simply the meeting point of those two emotions. When you look at a chart, you aren't just looking at numbers; you are looking at a visual representation of human fear and greed fighting it out in real-time. \n
 The Technical Analyst believes that by studying the **"footprints"** left by these buyers and sellers, we can figure out who is winning the war.
 
+***Well! Before we embark with our TA journey, it's good to know the upcoming readings are based on the book by John J Murpy - Technical Analysis of the Financial Markets, because it's the holy grail of TA books.***
 """ , unsafe_allow_html=True)
 
 

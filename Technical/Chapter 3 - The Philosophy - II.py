@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import numpy as numpy
+import numpy as np
 
 st.title("The Philosophy - continued")
 st.write("*We will continue the **The philosophy** here*")
