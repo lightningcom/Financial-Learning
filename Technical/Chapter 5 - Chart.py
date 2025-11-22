@@ -1,9 +1,11 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import plotly.graph_objects as go
 import numpy as np
 from numpy.random import default_rng as rng
 import random as rand
+
 def generate_dummy_data(days=100):
     """Generates dummy OHLC data for chart demonstrations."""
     np.random.seed(42)
@@ -23,6 +25,7 @@ def generate_dummy_data(days=100):
         
     df = pd.DataFrame(data, columns=['Date', 'Open', 'High', 'Low', 'Close'])
     return df
+
 def plot_candlestick(df, title="Market Structure"):
     fig = go.Figure(data=[go.Candlestick(
         x=df['Date'],
@@ -59,7 +62,7 @@ def plot_line(df, title="Line Chart View"):
 
 st.title("The Interface (Chart Construction & Setup)")
 st.markdown("""
-Ok! Imaging trying to play **Call of Duty** or **Elder Ring** with your monitor turned off. Yo're mashing buttons, hoping for the best, but' you're flying blind.That is exactly what trading is like without a chart. You are just guessing based on vibes. \n
+Ok! Imagine trying to play **Call of Duty** or **Elder Ring** with your monitor turned off. You're mashing buttons, hoping for the best, but you're flying blind. That is exactly what trading is like without a chart. You are just guessing based on vibes. \n
 But here is the catch: not all screens are created equal. Just having a chart isn't enough. If your interface is cluttered, uses the wrong data, or is zoomed out too far, you might as well be blind. John Murphy wrote about "Bar Charts" and "Line Charts" back when people had to draw them by hand on graph paper at the end of the trading day. Today, you have a supercomputer in your pocket connected to the global financial mainframe. You have too much data. \n
 Your job isn't just to look at a chart; it's to curate it. You need to set up your **Heads-Up Display (HUD)** to filter out the infinite noise and highlight the few signals that actually matter. This chapter isn't just about "how to draw a chart." It's about Data Visualization Strategy. \n
 Your job isn't just to look at a chart; it's to curate it. You need to set up your Heads-Up Display (HUD) to filter out the infinite noise and highlight the few signals that actually matter. This chapter isn't just about "how to draw a chart." It's about **Data Visualization Strategy**.
@@ -72,7 +75,7 @@ st.write("""
 """)
 st.markdown("""
 So, well, you do ask what is chart? \n
-In **definitioin terms**, A chart is the fundamental working surface of the technical analyst, serving as a graphical interface that translates complex streams of market data into a comprehensible visual narrative. More than just a record of historical prices, it is a multidimensional map of supply and demand that captures the collective psychology of all market participants at any given moment. By plotting price against time, the chart acts as a lie detector for the market, filtering out the noise of news and rumors to reveal the true conviction of buyers and sellers. It provides the necessary context to identify trends, spot reversals, and manage risk, ultimately transforming raw statistics into actionable market intelligence.\n
+In **definition terms**, A chart is the fundamental working surface of the technical analyst, serving as a graphical interface that translates complex streams of market data into a comprehensible visual narrative. More than just a record of historical prices, it is a multidimensional map of supply and demand that captures the collective psychology of all market participants at any given moment. By plotting price against time, the chart acts as a lie detector for the market, filtering out the noise of news and rumors to reveal the true conviction of buyers and sellers. It provides the necessary context to identify trends, spot reversals, and manage risk, ultimately transforming raw statistics into actionable market intelligence.\n
 
 
 Well, the charts are divided into basically 3 types : 
@@ -95,17 +98,53 @@ with tab1:
     
     with tab_1:
         st.write("""
-        ***"TThe Big Picture Guy"*** \n
+        ***"The Big Picture Guy"*** \n
         
-        Think of the line chart as the "executive summary" of the market. It cuts out all the noise and drama of the day and just tells you the bottom line: where the price ended up. It connects the closing prices with a single, clean line. It’s perfect when you want to step back and see the overall trend without getting a headache from too many details. It’s not great for timing a precise entry, but it’s fantastic for answering the question, "Is this thing generally going up or down?"
+        Think of the line chart as the "executive summary" of the market. It cuts out all the noise and drama of the day and just tells you the bottom line: where the price ended up. It connects the closing prices with a single, clean line. It's perfect when you want to step back and see the overall trend without getting a headache from too many details. It's not great for timing a precise entry, but it's fantastic for answering the question, "Is this thing generally going up or down?"
         """)
         st.plotly_chart(plot_line(df), use_container_width=True)
 
     with tab_2:
         st.write("""
         ***"The Blueprint"*** \n
-        If the line chart is an executive summary, the bar chart is the engineer’s blueprint. It gives you the "Open, High, Low, and Close" (OHLC) for every single period. It’s rigid, mechanical, and gives you the cold, hard facts. You can see how volatile the day was (the height of the bar) and who won at the end of the day (the little notch on the right). It’s not pretty to look at, but purists love it because it doesn’t try to influence your emotions with colors.
+        If the line chart is an executive summary, the bar chart is the engineer's blueprint. It gives you the "Open, High, Low, and Close" (OHLC) for every single period. It's rigid, mechanical, and gives you the cold, hard facts. You can see how volatile the day was (the height of the bar) and who won at the end of the day (the little notch on the right). It's not pretty to look at, but purists love it because it doesn't try to influence your emotions with colors.
         """)
+        components.html("""
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container" style="height:100%;width:100%">
+            <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+            <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener nofollow" target="_blank"><span class="blue-text">AAPL stock chart</span></a><span class="trademark"> by TradingView</span></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+            {
+            "allow_symbol_change": true,
+            "calendar": false,
+            "details": false,
+            "hide_side_toolbar": true,
+            "hide_top_toolbar": false,
+            "hide_legend": false,
+            "hide_volume": false,
+            "hotlist": false,
+            "interval": "D",
+            "locale": "en",
+            "save_image": true,
+            "style": "0",
+            "symbol": "NASDAQ:AAPL",
+            "theme": "light",
+            "timezone": "Etc/UTC",
+            "backgroundColor": "#ffffff",
+            "gridColor": "rgba(46, 46, 46, 0.06)",
+            "watchlist": [],
+            "withdateranges": false,
+            "compareSymbols": [],
+            "studies": [],
+            "autosize": true,
+            "width": 680,
+            "height": 480
+            }
+            </script>
+            </div>
+            <!-- TradingView Widget END -->
+        """, height=480)
 
     with tab_3:
         st.write("""
@@ -130,22 +169,8 @@ with tab1:
         st.write("The ***Autotune*** for Charts")
         st.markdown("""
         "Heikin-Ashi" means "Average Bar" in Japanese. It takes standard candlestick data and smooths it out using a formula. \n
-        **It’s like putting noise-canceling headphones on your trading.**\n
+        **It's like putting noise-canceling headphones on your trading.**\n
         * In a normal candlestick chart, an uptrend might look like: Green, Green, Red, Green, Red, Green. It looks choppy.
        * In Heikin-Ashi, that same uptrend looks like: Green, Green, Green, Green, Green. It smooths out the red candles during an uptrend to keep you focused on the primary direction.
        **The Verdict:** Excellent for staying in a trend without getting shaken out by minor pullbacks. If the Heikin-Ashi candles are green with no lower wicks, you simply do not sell.
         """)
-
-
-st.subheader("The Optical Illusion: Arithmetic vs. Logarithmic Scales", divider=True)
-st.write("""
-This is the most common mistake new traders make, and it usually leads to bad analysis. They look at a chart of Amazon or Apple from 1997 to 2024. On a standard setting, it looks like a completely flat line for 20 years and then suddenly a vertical wall in the last five years. \n
-That’s because they are using the wrong scale. They are looking at dollars, not growth. \n
-
-""")
-
-
-
-
-
-
